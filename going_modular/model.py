@@ -40,13 +40,13 @@ class UNet(nn.Module):
 
         # Decoder
         x3 = self.decoder(x2)
-        print(f'x3 {x3.shape}')
+        # print(f'x3 {x3.shape}')
 
         # Resize the output to match the original input size
         output_size = x.size()[2:]
         x3_resized = nn.functional.interpolate(x3, size=output_size, mode='bilinear', align_corners=False)
 
-        print(f'x3_resized {x3_resized.shape}')
+        # print(f'x3_resized {x3_resized.shape}')
 
 
         return x3_resized
