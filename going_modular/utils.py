@@ -27,7 +27,7 @@ import numpy as np
 #     mean_iou = np.mean(iou_per_class)
 #     return mean_iou
 
-def compute_iou(num_classes, predictions, targets):
+def compute_iou(predictions, targets, num_classes):
     """
     Calculate mean Intersection over Union (mIOU) for segmentation task.
 
