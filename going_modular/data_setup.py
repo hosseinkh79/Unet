@@ -2,8 +2,6 @@ import os
 import numpy as np
 from PIL import Image
 
-from going_modular import configs
-
 from torchvision import transforms
 from torch.utils.data import Dataset
 import torch

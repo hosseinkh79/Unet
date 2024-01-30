@@ -1,4 +1,3 @@
-from going_modular.configs import configs
 from going_modular.utils import compute_iou
 
 import torch
