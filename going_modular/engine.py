@@ -138,11 +138,11 @@ def train(model,
     
     for epoch in range(epochs):
 
-        # train_loss, train_iou = one_step_train(model,
-        #                                         train_dataloader,
-        #                                         loss_fn, 
-        #                                         optimizer,
-        #                                         device)
+        train_loss, train_iou = one_step_train(model,
+                                                train_dataloader,
+                                                loss_fn, 
+                                                optimizer,
+                                                device)
 
         test_loss, test_iou = one_step_test(model,
                                             test_dataloader,
