@@ -27,13 +27,15 @@ import numpy as np
 #     mean_iou = np.mean(iou_per_class)
 #     return mean_iou
 
-def compute_iou(predictions, targets, num_classes):
+def compute_iou(predictions, targets, num_classes=2):
 
     class_numbers = list(range(num_classes))
     mIOU_sum = 0.0
 
     for i in range(num_classes):
         class_number = class_numbers[i]
+        # print(f'predictions {predictions.dtype}')
+        # print(f'targets {targets.dtype}')
 
         # True positives, false positives, false negatives
         tp = np.sum((predictions == class_number) & (targets == class_number))
