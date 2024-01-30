@@ -76,7 +76,7 @@ def one_step_test(model,
             # print(f'outputs shape : {outputs.shape}')
 
             # Reshape the target mask to (batch_size, height, width)
-            targets = targets.squeeze(1)
+            # targets = targets.squeeze(1)
             # print(f'targets shape : {targets.shape}')
 
             # Calculate CrossEntropy loss
@@ -91,7 +91,7 @@ def one_step_test(model,
 
             # Assuming targets are already numpy arrays
             targets = targets.squeeze(1).cpu().numpy()
-            # print(f'iou : targets shape : {targets.shape}')
+            print(f'iou : targets shape : {targets.shape}')
             
 
             # Calculate mIoU for the current batch

@@ -12,20 +12,53 @@ import numpy as np
     
 #     return iou
 
-def compute_iou(predictions, targets, num_classes):
-    iou_per_class = np.zeros(num_classes, dtype=np.float32)
+# def compute_iou(predictions, targets, num_classes):
+#     iou_per_class = np.zeros(num_classes, dtype=np.float32)
+
+#     for i in range(num_classes):
+#         true_positive = np.sum((predictions == i) & (targets == i))
+#         false_positive = np.sum((predictions == i) & (targets != i))
+#         false_negative = np.sum((predictions != i) & (targets == i))
+
+#         union = true_positive + false_positive + false_negative
+#         iou = true_positive / union if union > 0 else 0.0
+#         iou_per_class[i] = iou
+
+#     mean_iou = np.mean(iou_per_class)
+#     return mean_iou
+
+def compute_iou(num_classes, predictions, targets):
+    """
+    Calculate mean Intersection over Union (mIOU) for segmentation task.
+
+    Parameters:
+        num_classes (int): Number of classes.
+        predictions (numpy.ndarray): Predicted segmentation masks (batch_size, image_height, image_width).
+        targets (numpy.ndarray): Ground truth segmentation masks (batch_size, image_height, image_width).
+
+    Returns:
+        float: Mean Intersection over Union (mIOU) score.
+    """
+    class_numbers = list(range(num_classes))
+    mIOU_sum = 0.0
 
     for i in range(num_classes):
-        true_positive = np.sum((predictions == i) & (targets == i))
-        false_positive = np.sum((predictions == i) & (targets != i))
-        false_negative = np.sum((predictions != i) & (targets == i))
+        class_number = class_numbers[i]
 
-        union = true_positive + false_positive + false_negative
-        iou = true_positive / union if union > 0 else 0.0
-        iou_per_class[i] = iou
+        # True positives, false positives, false negatives
+        tp = np.sum((predictions == class_number) & (targets == class_number))
+        fp = np.sum((predictions == class_number) & (targets != class_number))
+        fn = np.sum((predictions != class_number) & (targets == class_number))
 
-    mean_iou = np.mean(iou_per_class)
-    return mean_iou
+        # Calculate Intersection over Union (IOU) for the current class
+        iou = tp / (tp + fp + fn + 1e-10)
+
+        mIOU_sum += iou
+
+    # Calculate mean IOU
+    mIOU = mIOU_sum / num_classes
+
+    return mIOU
 
 
 import matplotlib.pyplot as plt
