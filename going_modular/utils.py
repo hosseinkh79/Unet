@@ -28,17 +28,7 @@ import numpy as np
 #     return mean_iou
 
 def compute_iou(predictions, targets, num_classes):
-    """
-    Calculate mean Intersection over Union (mIOU) for segmentation task.
 
-    Parameters:
-        num_classes (int): Number of classes.
-        predictions (numpy.ndarray): Predicted segmentation masks (batch_size, image_height, image_width).
-        targets (numpy.ndarray): Ground truth segmentation masks (batch_size, image_height, image_width).
-
-    Returns:
-        float: Mean Intersection over Union (mIOU) score.
-    """
     class_numbers = list(range(num_classes))
     mIOU_sum = 0.0
 

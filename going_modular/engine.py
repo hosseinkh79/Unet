@@ -1,5 +1,5 @@
 from going_modular.utils import compute_iou
-from going_modular import configs
+from Neural_Networks.unet.going_modular import config
 
 import torch
 
@@ -35,7 +35,7 @@ def one_step_train(model,
         loss.backward()
         optimizer.step()
 
-        num_classes = configs.NUM_CLASSES
+        num_classes = config.NUM_CLASSES
         
         predictions = torch.argmax(outputs, dim=1).cpu().numpy()
         # iou : predictions shape : (batch, image_size, image_size)
@@ -83,7 +83,7 @@ def one_step_test(model,
             loss = loss_fn(outputs, targets)
             test_loss += loss.item()
 
-            num_classes = configs.NUM_CLASSES
+            num_classes = config.NUM_CLASSES
             # Convert predictions to class labels
             predictions = torch.argmax(outputs, dim=1).cpu().numpy()
             # print(f'iou : predictions shape : {predictions.shape}')
@@ -91,7 +91,7 @@ def one_step_test(model,
 
             # Assuming targets are already numpy arrays
             targets = targets.squeeze(1).cpu().numpy()
-            print(f'iou : targets shape : {targets.shape}')
+            # print(f'iou : targets shape : {targets.shape}')
             
 
             # Calculate mIoU for the current batch
