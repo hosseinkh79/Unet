@@ -71,7 +71,6 @@ class Block(Module):
 		self.relu = ReLU()
 		self.conv2 = Conv2d(outChannels, outChannels, 3)
 	def forward(self, x):
-		# apply CONV => RELU => CONV block to the inputs and return it
 		return self.conv2(self.relu(self.conv1(x)))
 
 class Encoder(Module):

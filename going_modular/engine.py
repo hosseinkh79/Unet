@@ -25,6 +25,8 @@ def one_step_train(model,
 
         # Reshape the target mask to (batch_size, height, width)
         targets = targets.squeeze(1)
+        print(f'targets : {targets.shape}')
+        print(f'outputs : {outputs.shape}')
         # targets shape : torch.Size([2, 400, 400])
 
         # Calculate CrossEntropy loss
