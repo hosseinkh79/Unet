@@ -27,8 +27,8 @@ def one_step_train(model,
         targets = targets.squeeze(1).to(torch.float32)
         outputs = outputs.squeeze(1)
         outputs = torch.sigmoid(outputs)
-        print(f'targets : {targets.shape} {targets.dtype}')
-        print(f'outputs : {outputs.shape} {outputs.dtype}')
+        # print(f'targets : {targets.shape} {targets.dtype}')
+        # print(f'outputs : {outputs.shape} {outputs.dtype}')
         # targets shape : torch.Size([2, 400, 400])
 
         # Calculate CrossEntropy loss
@@ -43,12 +43,12 @@ def one_step_train(model,
         
         # predictions = torch.argmax(outputs, dim=1).cpu().numpy()
         import numpy as np
-        predictions = outputs.detach().numpy()
+        predictions = outputs.detach().cpu().numpy()
         predictions = np.where(1, predictions>.5, 0)
         # iou : predictions shape : (batch, image_size, image_size)
 
         # Assuming targets are already numpy arrays
-        targets = targets.squeeze(1).cpu().numpy()
+        targets = targets.squeeze(1).detach().cpu().numpy()
         # iou : targets shape : (batch, image_size, image_size)
 
         # Calculate mIoU for the current batch
