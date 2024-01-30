@@ -57,8 +57,8 @@ def one_step_train(model,
 
         train_iou += batch_iou
 
-        print(f'targets : {targets.shape} {targets.dtype}')
-        print(f'predictions : {predictions.shape} {predictions.dtype}')
+        # print(f'targets : {targets.shape} {targets.dtype}')
+        # print(f'predictions : {predictions.shape} {predictions.dtype}')
 
         precision, recall, f1 = calculate_precision_recall_f1(targets, predictions)
 
