@@ -1,4 +1,4 @@
-from going_modular.utils import compute_iou
+from going_modular.utils import compute_iou, calculate_precision_recall_f1
 from going_modular import config
 
 import torch
@@ -14,6 +14,7 @@ def one_step_train(model,
     model.train()
 
     train_loss, train_iou = 0, 0
+    t_precision, t_recall, t_f1 = 0, 0, 0
 
     for i, (inputs, targets) in enumerate(train_dataloader):
 
@@ -56,11 +57,33 @@ def one_step_train(model,
 
         train_iou += batch_iou
 
+        print(f'targets : {targets.shape} {targets.dtype}')
+        print(f'predictions : {predictions.shape} {predictions.dtype}')
+
+        precision, recall, f1 = calculate_precision_recall_f1(targets, predictions)
+
+        t_precision += precision
+        t_recall += precision
+        t_f1 += precision
+
+
+
+        
+
         # if i % 20 == 0:
         #     print(f'train_mode i is: {i}')
 
     train_loss = train_loss/len(train_dataloader)
     tain_iou = train_iou/len(train_dataloader)
+    
+    t_precision = t_precision/len(train_dataloader)
+    t_recall = t_recall/len(train_dataloader)
+    t_f1 = t_f1/len(train_dataloader)
+
+
+    print(f'pre: {t_precision}')
+    print(f'recal: {t_recall}')
+    print(f'f1: {t_f1}')
 
     return train_loss, tain_iou
 

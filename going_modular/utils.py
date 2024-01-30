@@ -52,6 +52,31 @@ def compute_iou(predictions, targets, num_classes=2):
 
     return mIOU
 
+from sklearn.metrics import precision_score, recall_score, f1_score
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+def calculate_precision_recall_f1(targets, predictions):
+
+    # Flatten the matrices to 1D arrays
+    targets_flat = targets.flatten()
+    predictions_flat = predictions.flatten()
+
+    # True Positives, False Positives, False Negatives
+    tp = np.sum((predictions_flat == 1) & (targets_flat == 1))
+    fp = np.sum((predictions_flat == 1) & (targets_flat == 0))
+    fn = np.sum((predictions_flat == 0) & (targets_flat == 1))
+
+    # Precision, Recall, F1 Score
+    precision = tp / (tp + fp + 1e-10)
+    recall = tp / (tp + fn + 1e-10)
+    f1 = 2 * (precision * recall) / (precision + recall + 1e-10)
+
+    return precision, recall, f1
+
+
 
 import matplotlib.pyplot as plt
 import torch
