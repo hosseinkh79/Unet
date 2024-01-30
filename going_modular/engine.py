@@ -83,23 +83,28 @@ def one_step_test(model,
             # print(f'outputs shape : {outputs.shape}')
 
             # Reshape the target mask to (batch_size, height, width)
-            targets = targets.squeeze(1)
-            # print(f'targets shape : {targets.shape}')
+            targets = targets.squeeze(1).to(torch.float32)
+            outputs = outputs.squeeze(1)
+            outputs = torch.sigmoid(outputs)
+            # print(f'targets : {targets.shape} {targets.dtype}')
+            # print(f'outputs : {outputs.shape} {outputs.dtype}')
+            # targets shape : torch.Size([2, 400, 400])
 
             # Calculate CrossEntropy loss
             loss = loss_fn(outputs, targets)
             test_loss += loss.item()
 
-            num_classes = config.NUM_CLASSES
-            # Convert predictions to class labels
-            predictions = torch.argmax(outputs, dim=1).cpu().numpy()
-            # print(f'iou : predictions shape : {predictions.shape}')
 
+            import numpy as np
+            predictions = outputs.detach().cpu().numpy()
+            predictions = np.where(1, predictions>.5, 0)
+            # iou : predictions shape : (batch, image_size, image_size)
 
             # Assuming targets are already numpy arrays
-            targets = targets.squeeze(1).cpu().numpy()
-            # print(f'iou : targets shape : {targets.shape}')
-            
+            targets = targets.squeeze(1).detach().cpu().numpy()
+            # iou : targets shape : (batch, image_size, image_size)
+
+            num_classes = config.NUM_CLASSES
 
             # Calculate mIoU for the current batch
             batch_iou = compute_iou(predictions, targets, num_classes)
@@ -133,11 +138,11 @@ def train(model,
     
     for epoch in range(epochs):
 
-        train_loss, train_iou = one_step_train(model,
-                                                train_dataloader,
-                                                loss_fn, 
-                                                optimizer,
-                                                device)
+        # train_loss, train_iou = one_step_train(model,
+        #                                         train_dataloader,
+        #                                         loss_fn, 
+        #                                         optimizer,
+        #                                         device)
 
         test_loss, test_iou = one_step_test(model,
                                             test_dataloader,
@@ -152,9 +157,9 @@ def train(model,
         print(
           f"Epoch: {epoch+1} | "
           f"train_loss: {train_loss:.4f} | "
-          f"train_iou: {train_iou*100:.2f} | "
+          f"train_iou: {train_iou:.2f} | "
           f"test_loss: {test_loss:.4f} | "
-          f"test_iou: {test_iou*100:.2f}"
+          f"test_iou: {test_iou:.2f}"
         )
         
     return results
