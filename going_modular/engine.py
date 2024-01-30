@@ -1,5 +1,5 @@
 from going_modular.utils import compute_iou
-from Neural_Networks.unet.going_modular import config
+from going_modular import config
 
 import torch
 
