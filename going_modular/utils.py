@@ -36,10 +36,10 @@ import os
 def plot_loss_curves(results):
 
     loss = results["train_loss"]
-    test_loss = results["val_loss"]
+    test_loss = results["test_loss"]
 
     accuracy = results["train_iou"]
-    test_accuracy = results["val_iou"]
+    test_accuracy = results["test_iou"]
 
     epochs = range(len(results["train_loss"]))
 
@@ -48,7 +48,7 @@ def plot_loss_curves(results):
     # Plot loss
     plt.subplot(1, 2, 1)
     plt.plot(epochs, loss, label="train_loss")
-    plt.plot(epochs, test_loss, label="val_loss")
+    plt.plot(epochs, test_loss, label="test_loss")
     plt.title("Loss")
     plt.xlabel("Epochs")
     plt.legend()
@@ -56,7 +56,7 @@ def plot_loss_curves(results):
     # Plot accuracy
     plt.subplot(1, 2, 2)
     plt.plot(epochs, accuracy, label="train_iou")
-    plt.plot(epochs, test_accuracy, label="val_iou")
+    plt.plot(epochs, test_accuracy, label="test_iou")
     plt.title("Accuracy")
     plt.xlabel("Epochs")
     plt.legend()
