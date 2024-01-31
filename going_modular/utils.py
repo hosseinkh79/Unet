@@ -104,9 +104,9 @@ def plot_loss_curves(results):
     plt.legend()
 
     # Plot accuracy
-    plt.subplot(1, 2, 2)
-    plt.plot(epochs, accuracy, label="train_iou")
-    plt.plot(epochs, test_accuracy, label="test_iou")
-    plt.title("Accuracy")
-    plt.xlabel("Epochs")
-    plt.legend()
+    # plt.subplot(1, 2, 2)
+    # plt.plot(epochs, accuracy, label="train_iou")
+    # plt.plot(epochs, test_accuracy, label="test_iou")
+    # plt.title("Accuracy")
+    # plt.xlabel("Epochs")
+    # plt.legend()

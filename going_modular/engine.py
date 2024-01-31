@@ -81,9 +81,9 @@ def one_step_train(model,
     t_f1 = t_f1/len(train_dataloader)
 
 
-    print(f'pre: {t_precision}')
-    print(f'recal: {t_recall}')
-    print(f'f1: {t_f1}')
+    # print(f'pre: {t_precision}')
+    # print(f'recal: {t_recall}')
+    # print(f'f1: {t_f1}')
 
     return train_loss, tain_iou
 
