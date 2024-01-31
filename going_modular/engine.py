@@ -184,7 +184,7 @@ def train(model,
           f"test_loss: {test_loss:.4f} | "
         )
 
-        if epoch == epochs+1:
+        if epoch == epochs:
             f"train_loss: {train_loss:.4f} | "
             f"test_iou: {test_iou:.2f}"
 
