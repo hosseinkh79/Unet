@@ -177,13 +177,17 @@ def train(model,
         results['test_loss'].append(test_loss)
         results['test_iou'].append(test_iou)
 
+
         print(
           f"Epoch: {epoch+1} | "
           f"train_loss: {train_loss:.4f} | "
-          f"train_iou: {train_iou:.2f} | "
           f"test_loss: {test_loss:.4f} | "
-          f"test_iou: {test_iou:.2f}"
         )
+
+        if epoch == epochs+1:
+            f"train_loss: {train_loss:.4f} | "
+            f"test_iou: {test_iou:.2f}"
+
         
     return results
 
